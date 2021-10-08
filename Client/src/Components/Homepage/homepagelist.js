@@ -11,7 +11,7 @@ function Ques() {
   async function getQues() {
       console.log("running")
      const questions = await axios.get("http://localhost:9000/ques");
-     console.log("succes:",questions)
+     console.log("success:",questions)
     setQues(questions.data);
   }
 

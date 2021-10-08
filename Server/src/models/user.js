@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const jwt=require("jsonwebtoken")
 mongoose.connect('mongodb://127.0.0.1:27017/log-in-signup-api', {
         useNewUrlParser: true
     })
@@ -44,6 +45,12 @@ const userSchema = new mongoose.Schema({
 
     },
 })
+userSchema.statics.findByToken = async(token) => {
+    const verified = await jwt.verify(token, "secret_key");
+    const user= await User.findById(verified.user)
+    console.log(user)
+    return user
+}
 const User = mongoose.model('User', userSchema)
 
 // const me = User({

@@ -23,15 +23,13 @@ router.post("/",async (req,res)=>{
                 errorMessage: "An account with this email already exists.",
               });
             }
-              const new_user= new User({name,email,password})
-              const saved_user=new_user.save()
+        const new_user= new User({name,email,password})
+        const saved_user=new_user.save()
             //   res.send(new_user)
-              const token=await jwt.sign({user:saved_user._id},"secret_key")
-              console.log(token)
+        // const token=await jwt.sign({user:saved_user._id},"secret_key")
+        // console.log(token)
               //send the cookie in http_cookie only
-              res.cookie("token", token, {
-                httpOnly: true,
-                })  .send();
+        res.status(201).send();
 
 
 }
@@ -78,7 +76,8 @@ router.post("/login", async (req, res) => {
   
       const existingUser = await User.findOne({ email });
       if (!existingUser)
-        return res.status(401).json({ errorMessage: "Wrong email or password." });
+        
+        return res.status(401).json({ errorMessage: "EMAIL NOT FOUND" });
       console.log(password,existingUser.password)
       if(password!=existingUser.password){
         return res.status(401).json({ errorMessage: "Wrong email or password." });

@@ -7,6 +7,15 @@ const questionSchema = new mongoose.Schema({
     author: {
       type: String,
     },
+    author_id:{
+      type:String,
+
+    },
+    views:{
+      type:Number,
+      default:0
+
+    },
 
     body: {
       type: String,

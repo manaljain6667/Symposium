@@ -24,7 +24,6 @@ export default function  NavBar() {
             </>
             )
         }
-            {/* <li><Link to='/postQues'>Post Your Ques</Link></li> */}
         </ul>
     </div>
     );
