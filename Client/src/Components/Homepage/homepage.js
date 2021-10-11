@@ -6,7 +6,7 @@ function HomePage({ ques }) {
     return ques.map((qp, i) => {
       // console.log("/ques/",qp._id )
       return (
-      <li key={i}> <Link to={"/ques/"+qp._id }> {qp.body}  ,asked by ={qp.author} , views= {qp.views}</Link></li>)
+      <li key={i}> <Link to={"/ques/"+qp._id }> {qp.body}  ,asked by ={qp.author} , views= {qp.viewsCount} likes={qp.upVoteCount}</Link></li>)
     });
     // console.log(ques)
   }

@@ -1,8 +1,22 @@
 const mongoose = require('mongoose')
+const { MongoClient } = require('mongodb');
+const uri = "mongodb+srv://Hrishi:qwerty1234@symposium.caypb.mongodb.net/symposium?retryWrites=true&w=majority";
+
 const jwt=require("jsonwebtoken")
-mongoose.connect('mongodb://127.0.0.1:27017/log-in-signup-api', {
-        useNewUrlParser: true
-    })
+// mongoose.connect('mongodb://127.0.0.1:27017/log-in-signup-api', {
+//         useNewUrlParser: true
+//     })
+try {
+    // Connect to the MongoDB cluster
+     mongoose.connect(
+      uri,
+      { useNewUrlParser: true, useUnifiedTopology: true },
+      () => console.log(" Mongoose is connected")
+    );
+
+  } catch (e) {
+    console.log("could not connect");
+  }
     // try {
     //     mongoose.connect('mongodb://localhost:27017/log-in-signup-api');
     // } catch (error) {

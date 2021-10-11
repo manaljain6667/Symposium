@@ -8,12 +8,15 @@ import PostQues from "./Components/PostQuestion/postQues"
 import LogOutBtn from "./Components/Logout/logout";
 import QuestionPage from "./Components/QuesPage/quesPage";
 import axios from "axios";
-//import { AuthContextProvider } from "./context/AuthContext"
+// import { AuthContextProvider } from "./context/AuthContext"
 import AuthContext from "./context/AuthContext";
 axios.defaults.withCredentials = true;
 function App() {
-  const  {loggedIn} = useContext(AuthContext);
-  // console.log("active:",loggedIn)
+  const  data = useContext(AuthContext);
+  // console.log("activex:", data.userId )
+   const loggedIn=data.loggedIn
+  const user  = data.userId
+//  console.log(user)
 
 
     return (
@@ -26,7 +29,7 @@ function App() {
       <Route path='/ques/:id' component={QuestionPage}/>
       <Route  path='/home' component={Ques} />
       {
-        loggedIn===false && (
+        loggedIn===undefined && (
           <>
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />

@@ -19,17 +19,19 @@ router.post("/",async (req,res)=>{
     try{
         const existing_user= await User.findOne({email})
         if(existing_user){
-            res.status(400).json({
+            return res.status(400).json({
                 errorMessage: "An account with this email already exists.",
               });
             }
+        else{
         const new_user= new User({name,email,password})
-        const saved_user=new_user.save()
+        const saved_user=await new_user.save()
             //   res.send(new_user)
         // const token=await jwt.sign({user:saved_user._id},"secret_key")
         // console.log(token)
               //send the cookie in http_cookie only
         res.status(201).send();
+          }
 
 
 }
@@ -121,16 +123,17 @@ router.get('/author',async (req,res)=>{
         console.log(user)
         res.send(user.name)
       })
-router.get("/loggedIn", (req, res) => {
+router.get("/loggedIn", async(req, res) => {
         try {
           const token = req.cookies.token;
           if (!token) return res.json(false);
       
-          jwt.verify(token, "secret_key");
-      
-          res.send(true);
+          await jwt.verify(token, "secret_key");
+          const user=await User.findByToken(token)
+          const id=user._id
+          res.json({loggedIn:true,id:id});
         } catch (err) {
           res.json(false);
-        }
+        } 
       });
 module.exports=router

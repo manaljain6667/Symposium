@@ -9,7 +9,7 @@ function QuestionPage(props) {
     const { id } = props.match.params
     // console.log(id)
   const [question, setQuestion] = useState(false);
-  //const[ans,setAns]=useState([])
+ const[ like, Setlike]=useState(0)
     function fetchQuestion() {
         
         axios
@@ -19,13 +19,22 @@ function QuestionPage(props) {
             //setAns(response.data.answer)
             // setTagArray(response.data.tagArray);
           });
+       }
+    function OnLike(){console.log("http://localhost:9000/ques/upVote/" + id)
+        axios.get("http://localhost:9000/ques/upVote/" + id ).then((response)=>{
+          console.log(response.data.upVoteCount)
+          Setlike(response.data.upVoteCount)
+        }).catch((err)=>{console.log(err)})
       }
-useEffect(() => fetchQuestion(),[]);
-  return( 
+useEffect(() => fetchQuestion(),[like]);
+  return(
   <div>
       <p>{question.body}</p>
       asked by {question.author}
-      <p><h1>views : {question.views}</h1></p>
+      <p><h1>views : {question.viewsCount}</h1>
+      
+     <button onClick={OnLike}>Like</button>
+     likes={question.upVoteCount}</p>
       </div>
   )
 
