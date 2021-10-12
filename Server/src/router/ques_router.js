@@ -1,5 +1,6 @@
 const Ques = require('../models/questions')
 const User=require('../models/user')
+const Ans = require('../models/answers')
 const express= require('express')
 const router = new express.Router()
 const auth=require("../middleware/auth")
@@ -7,18 +8,13 @@ const jwt=require("jsonwebtoken")
 
 router.post("/postQues",async(req,res)=>{
     const body=req.body.body
-    // console.log(body)
     const tags=req.body.tags
-    console.log(req)
-    // const tags=req.tags.replace(/\s/g,'').split(",");
-    console.log("req",req.cookies.token)
     try{
         const user= await User.findByToken(req.cookies.token)
         console.log("2")
         const author=user.name
         const author_id=user._id
         console.log(author,author_id)
-        // res.send(user.name)
         const ques= new Ques({author,author_id,body,tags})
         const newQues=await ques.save()
         res.json(newQues)
@@ -73,10 +69,7 @@ router.get("/:id", async (req, res) => {
 })
 router.get("/upVote/:id", async (req, res) => {
     const _id = req.params.id;
-    // console.log(_id)
-    // const tagArray = [];
-    // var tagArrayName = [];
-  
+ 
 
     try {
         
@@ -86,11 +79,6 @@ router.get("/upVote/:id", async (req, res) => {
             res.json("Question Not found!")
         }
         const user=await User.findByToken(req.cookies.token)
-        // console.log(user._id.toString())
-        // const arr=ques.upVotes.map(item=>item.user._id.toString())
-        // .indexOf(user._id.toString())
-        // console.log(arr)
-        // console.log(upVote[0].user.toString(),user.toString())
         if (ques.upVotes.filter(upVote => upVote.user._id.toString() ===
         user._id.toString()).length > 0) {
         const removeThis = ques.upVotes
@@ -116,6 +104,41 @@ router.get("/upVote/:id", async (req, res) => {
         console.log(e)
         res.status(404).send(e)
     }
+})
+router.post('/postAns', async (req, res) => {
+   
+    try {
+        const token = req.cookies.token
+        const verified = await jwt.verify(token, "secret_key");
+        const user = await User.findById(verified.user)
+        const author = user.name
+        console.log('checking user details')
+        console.log(user)
+        req.body.author = user.name
+        req.body.email = user.email
+    } catch (e) {
+        console.log('404 error occuring')
+        res.status(404).send(e)
+    }
+
+   await Ques.findOne({ _id: req.body.Quesid }, (err, question) => {
+        console.log("Inside answer router")
+        author = req.body.author
+        email = req.body.email
+        body = req.body.body
+        console.log(question)
+
+        if (err || !question) res.status(500).json("Something went wrong.")
+        else {
+            const ans = new Ans({ author, email, body })
+            ans.save()
+            question.answers.push(ans)
+            question.save()
+                .then(() => res.json({ message: "Success" }))
+
+            return
+        }
+    })
 })
 
 module.exports=router

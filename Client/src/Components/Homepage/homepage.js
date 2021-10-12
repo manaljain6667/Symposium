@@ -22,10 +22,10 @@ function HomePage({ ques }) {
               <p key={i} ><Link to={"/ques/" + qp._id} className="link"> {qp.body}</Link></p>
             </div>
             <div className="row">
-              <div className="col-4 author">
+              <div className="col-6 author">
                 <p className="text-color"> <span></span> <span>{qp.author}</span></p>
               </div>
-              <div className="col-8">
+              <div className="col-6">
                 {rendertags(qp.tags)}
               </div>
             </div>
@@ -37,7 +37,7 @@ function HomePage({ ques }) {
                 <span className="text-color">Views</span>
               </div>
               <div className="col-3 mt-3 mr-1 questions box s">
-                <span className="text-color">0</span><br />
+                <span className="text-color">{qp.count_answers}</span><br />
                 <p className="text-color">answers</p>
               </div>
               <div className="col-3 mt-3  questions box s">

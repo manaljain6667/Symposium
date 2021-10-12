@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useParams, useEffect, useState } from "react";
+import Answer from './answer_individual';
+import DispAnswer from './dispanswer';
 import "../Homepage/homepage.css"
 // import ErrorMessage from "../ErrorMessage/errormess"
 //import { useHistory } from "react-router-dom";
@@ -11,13 +13,14 @@ function QuestionPage(props) {
   // console.log(id)
 const [question, setQuestion] = useState(false);
 const[ like, Setlike]=useState(0)
+const[ Tags, SetTags]=useState(0)
+
   async function fetchQuestion() {
       axios
         .get("http://localhost:9000/ques/" + id)
         .then((response) => {
-          
            setQuestion(response.data);
-          console.log(question.tags)
+           SetTags(response.data.tags);
           //setAns(response.data.answer)
           // setTagArray(response.data.tagArray);
         });
@@ -25,6 +28,7 @@ const[ like, Setlike]=useState(0)
   function OnLike(){console.log("http://localhost:9000/ques/upVote/" + id)
       axios.get("http://localhost:9000/ques/upVote/" + id ).then((response)=>{
         console.log(response.data.upVoteCount)
+        // console.log("tags",Tags)
         Setlike(response.data.upVoteCount)
       }).catch((err)=>{console.log(err)})
     }
@@ -36,6 +40,7 @@ useEffect(() => fetchQuestion(),[like]);
         <div className="col-2">
           <span className="text-color postby">asked by {question.author}</span>
           {/* Manal add css to tags */}
+          {/* <span>  { question.tags}    </span> */}
         </div>
         <div className="col-2">
           <span className="text-color view">views : {question.viewsCount}</span>
@@ -45,6 +50,8 @@ useEffect(() => fetchQuestion(),[like]);
           <span className="text-color view">Votes : {question.upVoteCount}</span>
         </div>
       </div>
+      {<DispAnswer question={question}></DispAnswer>}
+      {<Answer question={question}></Answer>}
     </div>
   )
 

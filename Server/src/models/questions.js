@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const User = require('./user')
+const answerSchema = require('./answers').schema;
 const uri = "mongodb+srv://Hrishi:qwerty1234@symposium.caypb.mongodb.net/symposium?retryWrites=true&w=majority";
 
 // mongoose.connect('mongodb://127.0.0.1:27017/log-in-signup-api', {
@@ -52,12 +53,17 @@ const questionSchema = new mongoose.Schema({
   },
   tags:[{
     type:String
-  }]
-
+  }],
+  answers: [answerSchema],
+  count_answers:{
+    type: Number,
+    default:0
+  },
   });
   questionSchema.pre('save', function (next) {
     this.upVoteCount = this.upVotes.length
     this.viewsCount=this.views.length
+    this.count_answers=this.answers.length
     next();
   });
 const Questions = mongoose.model('Questions', questionSchema)
