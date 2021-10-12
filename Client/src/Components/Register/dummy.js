@@ -6,44 +6,43 @@ import AuthContext from "../../context/AuthContext";
 import './styles.css';
 import { Link } from 'react-router-dom';
 
+var isValidated=true
 function Register() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState("");
 
-  const [err,seterr]=useState({})
+  const [emailValid, setEmailValid] = useState("");
+  const [nameValid, setNameValid] = useState("");
+  const [passwordValid, setPasswordValid] = useState("");
+  const [passwordVerifyValid, setPasswordVerifyValid] = useState("");
   const [errorMessage, setErrorMessage] = useState("")
   console.log("register")
 
   const { getLoggedIn } = useContext(AuthContext);
   const history = useHistory();
+
   
   async function register(e) {
     e.preventDefault();
-
-    var isValidated=true
-    let error={};
     if(name.length <1){
       isValidated=false;
-      error["name"]="Field user name cannot be empty";
+      setNameValid("Field user name cannot be empty")
     }
     if(!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)){
       isValidated=false;
-      error["email"]="Email is invalid";
+      setEmailValid("Email is invalid")
     }
     if(password.length <6){
       isValidated=false;
-      error["password"]="Password length is too short";
+      setPasswordValid("Password length is too short")
     }
-    
-    if( password  !== passwordVerify){
+    if(password  !== passwordVerify){
       isValidated=false;
-      error["passwordverify"]="Password and confirm password do not match";
+      setPasswordVerifyValid("Password and confirm password do not match")
     }
     if(isValidated){
-      let error={}
-      seterr(error)
       try {
         const registerData = {
           email,
@@ -54,7 +53,7 @@ function Register() {
         await axios.post("http://localhost:9000/auth/", registerData);
   
         await getLoggedIn();
-        history.push("/login");
+        history.push("/home");
       } catch (err) {
         if (err.response) {
           if (err.response.data.errorMessage) {
@@ -64,7 +63,13 @@ function Register() {
       }
     }
     else{
-      seterr(error)
+      console.log(nameValid);
+      console.log(emailValid);
+      console.log(passwordValid);
+      console.log(passwordVerifyValid);
+      
+      isValidated=true;
+      
     }
   }
 
@@ -89,7 +94,7 @@ function Register() {
                   name="name"
                   onChange={(e) => setName(e.target.value)}
                   value={name} />
-                   <p className="errors">{err["name"]}</p>
+                  {isValidated && <p className="errors">{nameValid}</p>}
               </div>
               <div className="form-group">
                 <label htmlFor="email">Email address</label>
@@ -97,7 +102,7 @@ function Register() {
                   placeholder="Email"
                   onChange={(e) => setEmail(e.target.value)}
                   value={email} />
-                   <p className="errors">{err["email"]}</p>
+                  {isValidated && <p className="errors">{emailValid}</p>}
               </div>
               <div className="form-group" >
                 <label htmlFor="password">Password</label>
@@ -105,7 +110,7 @@ function Register() {
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
                   value={password} />
-                   <p className="errors">{err["password"]}</p>
+                  {isValidated && <p className="errors">{passwordValid}</p>}
               </div>
               <div className="form-group" >
                 <label htmlFor="repassword">Confirm Password</label>
@@ -113,7 +118,7 @@ function Register() {
                   placeholder="Confirm Password"
                   onChange={(e) => setPasswordVerify(e.target.value)}
                   value={passwordVerify} />
-                   <p className="errors">{err["passwordverify"]}</p>
+                  {isValidated && <p className="errors">{passwordVerifyValid}</p>}
               </div>
               <button type="submit" className="btn btn-dark btn-lg btn-block">Sign up</button>
             </form>

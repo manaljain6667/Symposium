@@ -6,29 +6,21 @@ const auth=require("../middleware/auth")
 const jwt=require("jsonwebtoken")
 
 router.post("/postQues",async(req,res)=>{
-    const {body}=req.body
-    //console.log("req",req.cookies.token)
+    const body=req.body.body
+    // console.log(body)
+    const tags=req.body.tags
+    console.log(req)
+    // const tags=req.tags.replace(/\s/g,'').split(",");
+    console.log("req",req.cookies.token)
     try{
         const user= await User.findByToken(req.cookies.token)
-        // console.log("2")
+        console.log("2")
         const author=user.name
         const author_id=user._id
-        // console.log(author,author_id)
+        console.log(author,author_id)
         // res.send(user.name)
-        const ques= new Ques({author:author,author_id:author_id,body:body})
-        // .then((req,res)=>{
-        //     console.log(res)
-        // }).catch((e)=>{
-        //     console.log(e)
-        // })
-        console.log("success1")
-        const newQues= await ques.save()
-        // .then((req,res)=>{
-        //     console.log(res)
-        // }).catch((err)=>{
-        //     console.log(err)
-        // })
-        console.log("success2")
+        const ques= new Ques({author,author_id,body,tags})
+        const newQues=await ques.save()
         res.json(newQues)
         // console.log(newQues)
 
@@ -53,7 +45,6 @@ catch(e){
 }
 
 })
-//update views
 router.get("/:id", async (req, res) => {
     const _id = req.params.id;
     // const tagArray = [];
@@ -61,7 +52,6 @@ router.get("/:id", async (req, res) => {
   
 
     try {
-        
         const ques = await Ques.findById(_id)
         const user=await User.findByToken(req.cookies.token)
         // if(user._id!=ques.author_id){
@@ -81,8 +71,6 @@ router.get("/:id", async (req, res) => {
         res.send("No user found")
     }
 })
-
-//upvoting a ques
 router.get("/upVote/:id", async (req, res) => {
     const _id = req.params.id;
     // console.log(_id)
@@ -129,6 +117,5 @@ router.get("/upVote/:id", async (req, res) => {
         res.status(404).send(e)
     }
 })
-
 
 module.exports=router

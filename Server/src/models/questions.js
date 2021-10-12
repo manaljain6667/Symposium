@@ -50,6 +50,9 @@ const questionSchema = new mongoose.Schema({
   upVoteCount : {type:Number,
   default:0
   },
+  tags:[{
+    type:String
+  }]
 
   });
   questionSchema.pre('save', function (next) {

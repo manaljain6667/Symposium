@@ -17,17 +17,6 @@ try {
   } catch (e) {
     console.log("could not connect");
   }
-    // try {
-    //     mongoose.connect('mongodb://localhost:27017/log-in-signup-api');
-    // } catch (error) {
-    //     handleError(error);
-    // }
-    // mongoose.connection.on('error', err => {
-    //     logError(err);
-    // });
-    // const MyModel = mongoose.model('log-in-signup-api')
-
-
 const userSchema = new mongoose.Schema({
     name: {
         type: String,

@@ -1,0 +1,100 @@
+
+
+.author{
+    
+    width: 10%;
+    max-width: 10%;
+    min-height: 5%;
+}
+.row-body{
+    padding-top: 3%;
+    padding-left: 3%;
+}
+
+
+
+a:link {
+    color: rgb(128, 0, 117);
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:visited {
+    /* color: green; */
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: red;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:active {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  
+
+/* 
+.link{
+    text-decoration: white;
+} */
+
+
+
+
+.text-color{
+    color:white
+}
+ 
+
+
+.tags{
+  padding:5px
+}
+
+
+
+div.questions{
+  border: 1px solid black;
+  border-bottom: none;
+}
+
+div.questions:last-child {
+  border-bottom: 1px solid black;
+}
+
+.search{
+  color: gray;
+  border: 0px;
+  width: 90%;
+}
+.box{
+  font-size: 10pt;
+  background-color: rgb(66, 64, 64);
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid black !important;
+  background-clip:padding-box;
+}
+.quest{
+  margin-left: 5%;
+  margin-top: 3%;
+  margin-right: 3%;
+  padding: 1%;
+  border: 1px solid black;
+}
+.title{
+  font-size: 25pt;
+}
+
+.view{
+  font-size: 15pt;
+}
+.postby{
+  font-size: 15pt;
+}

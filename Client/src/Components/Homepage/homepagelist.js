@@ -5,13 +5,13 @@ import Homepage from "./homepage"
 // import CustomerList from "./CustomerList";
 
 function Ques() {
-    console.log("running")
+  console.log("running")
   const [ques, setQues] = useState([]);
 
   async function getQues() {
-      console.log("running")
-     const questions = await axios.get("http://localhost:9000/ques");
-     console.log("success:",questions)
+    console.log("running")
+    const questions = await axios.get("http://localhost:9000/ques");
+    console.log("succes:", questions)
     setQues(questions.data);
   }
 
@@ -20,8 +20,15 @@ function Ques() {
   }, []);
 
   return (
-    <div>
-      <Homepage ques={ques} />
+    <div class="container-fluid s">
+        <div class="row no-gutters row-body">
+        <div className="col-8 col-sm disp">
+          <Homepage ques={ques} />
+        </div>
+        <div className="col-4">
+           
+        </div>
+      </div>
     </div>
   );
 }

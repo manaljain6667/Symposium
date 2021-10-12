@@ -5,21 +5,19 @@ import Login from "./Components/Login/login";
 import Navbar from "./Components/Navbar/navbar";
 import Register from "./Components/Register/register";
 import PostQues from "./Components/PostQuestion/postQues"
-import LogOutBtn from "./Components/Logout/logout";
+// import LogOutBtn from "./Components/Logout/logout";
 import QuestionPage from "./Components/QuesPage/quesPage";
 import axios from "axios";
-// import { AuthContextProvider } from "./context/AuthContext"
+//import { AuthContextProvider } from "./context/AuthContext"
 import AuthContext from "./context/AuthContext";
 axios.defaults.withCredentials = true;
 function App() {
   const  data = useContext(AuthContext);
-  // console.log("activex:", data.userId )
    const loggedIn=data.loggedIn
-  const user  = data.userId
-//  console.log(user)
+    //const user  = data.userId
+  console.log("login",loggedIn)
 
-
-    return (
+  return (
   
     <BrowserRouter>
       <Navbar />
@@ -41,7 +39,6 @@ function App() {
      {loggedIn===true && (
        <>
        <Route path='/postQues' component={PostQues} />
-       <Route path='/logout' component={LogOutBtn} />
        </>
      )}
      
