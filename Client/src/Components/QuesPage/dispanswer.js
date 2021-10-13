@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
-
+import "../Homepage/homepage.css"
 
 function DispAnswer({ question }) {
 
@@ -14,9 +14,14 @@ function DispAnswer({ question }) {
     else{
       return question.answers.map((answer, j) => {
         return (
-          <>
-            <li key={j}> {answer.body}  ,answered by ={answer.author} </li>
-          </>
+          <div className="container answer-box">
+            <div className="row ml-5">
+            <p key={j} className="text-color "> {answer.body}</p>
+            </div>
+            <div className="row ml-5">
+            <p key={j+1} className="text-color">answered by ={answer.author} </p>
+            </div>
+          </div>
         )
       })
     }

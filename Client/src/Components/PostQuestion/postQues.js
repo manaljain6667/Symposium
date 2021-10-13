@@ -5,6 +5,7 @@ import AuthContext from "../../context/AuthContext";
 import './tagsInput.css'
 // import TagsInput from './Tagsinput';
 function PostQues() {
+
   //   const [author, setAuthor] = useState("");
   const [body, setBody] = useState("");
   const [input, setInput] = useState('');
@@ -84,7 +85,7 @@ function PostQues() {
 
   return (
     <div className="container-fluid s">
-      <h1 className="text-color post">Post Your ques</h1>
+      <h1 className="post"><span className="text-color">Post Your ques</span></h1>
       <form onSubmit={postQues}>
         <div className="form-group ">
           <textarea

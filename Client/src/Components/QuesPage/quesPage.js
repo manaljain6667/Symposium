@@ -7,8 +7,21 @@ import "../Homepage/homepage.css"
 //import { useHistory } from "react-router-dom";
 //import AuthContext from "../../context/AuthContext";
 
-
+function rendertags(tags) {
+  console.log(tags)
+  if(tags){
+  return (
+    <>
+      {tags.map(function (tag, i) {
+        return (<span key={i} className="text-color tags tag-box">{tag}</span>)
+      })}
+    </>
+  )
+    }
+}
 function QuestionPage(props) {
+
+  
   const { id } = props.match.params
   // console.log(id)
 const [question, setQuestion] = useState(false);
@@ -35,20 +48,28 @@ const[ Tags, SetTags]=useState(0)
 useEffect(() => fetchQuestion(),[like]);
   return (
     <div className="quest">
+      <div className="row">
+      <div className="col-1">
+          <button onClick={OnLike}><i class="fa fa-thumbs-up"></i></button><br/>
+          <span className="text-color view">Votes : {question.upVoteCount}</span><br/>
+          <span className="text-color view">views : {question.viewsCount}</span>
+      </div>
+      <div className="col">
       <p className="text-color title">{question.body}</p>
       <div className="row">
         <div className="col-2">
-          <span className="text-color postby">asked by {question.author}</span>
-          {/* Manal add css to tags */}
-          {/* <span>  { question.tags}    </span> */}
+        <span className="text-color postby">asked by {question.author}</span>
+        </div>
+        <div className="col-4">
+          {rendertags(question.tags)}
         </div>
         <div className="col-2">
-          <span className="text-color view">views : {question.viewsCount}</span>
+          
         
         {/* Manal !! needs to build UI for Vote */}
-          <button onClick={OnLike}>Upvote</button>
-          <span className="text-color view">Votes : {question.upVoteCount}</span>
         </div>
+      </div>
+      </div>
       </div>
       {<DispAnswer question={question}></DispAnswer>}
       {<Answer question={question}></Answer>}
