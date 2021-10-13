@@ -1,7 +1,13 @@
-import React from "react";
+import React,  { useContext }from "react";
 import { Link } from 'react-router-dom';
 import './homepage.css'
+import AuthContext from "../../context/AuthContext";
 function HomePage({ ques }) {
+
+  const data= useContext(AuthContext);
+    console.log(data)
+    // console.log("actve_client: ", loggedIn)
+    const loggedIn=data.loggedIn
 
   function rendertags(tags) {
     return (
@@ -19,7 +25,18 @@ function HomePage({ ques }) {
         <div className="row questions question-row">
           <div className="col-8">
             <div className="row row-color">
+              {loggedIn ===true &&(
+              <>
               <p key={i} ><Link to={"/ques/" + qp._id} className="link"> {qp.body}</Link></p>
+              </>
+              )
+              }
+               {loggedIn ===undefined &&(
+              <>
+              <p key={i} ><Link to={"/login"} className="link"> {qp.body}</Link></p>
+              </>
+              )
+              }
             </div>
             <div className="row">
               <div className="col-6 author">
