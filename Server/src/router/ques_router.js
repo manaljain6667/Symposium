@@ -140,5 +140,44 @@ router.post('/postAns', async (req, res) => {
         }
     })
 })
+//question search
+router.get("/search",async (req,res) =>{
+    const body=req.body.search
+   //sentence into strings of words
+    //let str = "How are you doing today?";
+    const substrings = body.split(" ")
+    console.log(substrings)
+    const ques=await Ques.find()
+    var count
+    var result=[]
+    var flag=0
+    //console.log(body)
+    //res.send(myArr)
+    ques.forEach(async (title) => {
+        questitle=title.body
+        len=substrings.length
+        
+        count=0
+        while(len--) {
+            if (questitle.indexOf(substrings[len])!=-1) {
+                count=count+1
+                flag=1
+            }
+         }
+        // title["match"]=count
+        //  console.log(title)
+        if(count!=0){
+            result.push({ques:title,match:count})
+        }
+    })
+    result=result.sort((a, b) => parseFloat(b.match) - parseFloat(a.match));
+    result = result.map(({ match, ...r }) => r);
+    // console.log(result)
+    if(flag){
+        res.send(result)
+    }
+    else{res.send("No match found")}
+})
+
 
 module.exports=router
