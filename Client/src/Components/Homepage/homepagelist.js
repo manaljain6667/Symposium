@@ -21,7 +21,7 @@ function Ques() {
 
   return (
     <div class="container-fluid s">
-        <div class="row no-gutters row-body">
+        <div class="row row-body">
         <div className="col-8 col-sm disp">
           <Homepage ques={ques} />
         </div>

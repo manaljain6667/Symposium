@@ -1,23 +1,39 @@
 import axios from "axios";
 import React, { useParams, useEffect, useState } from "react";
+import Answer from './answer_individual';
+import DispAnswer from './dispanswer';
 import "../Homepage/homepage.css"
 // import ErrorMessage from "../ErrorMessage/errormess"
 //import { useHistory } from "react-router-dom";
 //import AuthContext from "../../context/AuthContext";
 
-
+function rendertags(tags) {
+  console.log(tags)
+  if(tags){
+  return (
+    <>
+      {tags.map(function (tag, i) {
+        return (<span key={i} className="text-color tags tag-box">{tag}</span>)
+      })}
+    </>
+  )
+    }
+}
 function QuestionPage(props) {
+
+  
   const { id } = props.match.params
   // console.log(id)
 const [question, setQuestion] = useState(false);
 const[ like, Setlike]=useState(0)
+const[ Tags, SetTags]=useState(0)
+
   async function fetchQuestion() {
       axios
         .get("http://localhost:9000/ques/" + id)
         .then((response) => {
-          
            setQuestion(response.data);
-          console.log(question.tags)
+           SetTags(response.data.tags);
           //setAns(response.data.answer)
           // setTagArray(response.data.tagArray);
         });
@@ -25,26 +41,38 @@ const[ like, Setlike]=useState(0)
   function OnLike(){console.log("http://localhost:9000/ques/upVote/" + id)
       axios.get("http://localhost:9000/ques/upVote/" + id ).then((response)=>{
         console.log(response.data.upVoteCount)
+        // console.log("tags",Tags)
         Setlike(response.data.upVoteCount)
       }).catch((err)=>{console.log(err)})
     }
 useEffect(() => fetchQuestion(),[like]);
   return (
     <div className="quest">
+      <div className="row">
+      <div className="col-1">
+          <button onClick={OnLike}><i class="fa fa-thumbs-up"></i></button><br/>
+          <span className="text-color view">Votes : {question.upVoteCount}</span><br/>
+          <span className="text-color view">views : {question.viewsCount}</span>
+      </div>
+      <div className="col">
       <p className="text-color title">{question.body}</p>
       <div className="row">
         <div className="col-2">
-          <span className="text-color postby">asked by {question.author}</span>
-          {/* Manal add css to tags */}
+        <span className="text-color postby">asked by {question.author}</span>
+        </div>
+        <div className="col-4">
+          {rendertags(question.tags)}
         </div>
         <div className="col-2">
-          <span className="text-color view">views : {question.viewsCount}</span>
+          
         
         {/* Manal !! needs to build UI for Vote */}
-          <button onClick={OnLike}>Upvote</button>
-          <span className="text-color view">Votes : {question.upVoteCount}</span>
         </div>
       </div>
+      </div>
+      </div>
+      {<DispAnswer question={question}></DispAnswer>}
+      {<Answer question={question}></Answer>}
     </div>
   )
 
