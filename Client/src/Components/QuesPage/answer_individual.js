@@ -5,57 +5,95 @@ import AuthContext from "../../context/AuthContext";
 import DispAnswer from './dispanswer';
 import Homepagelist from '../Homepage/homepagelist'
 import "../PostQuestion/tagsInput.css"
-//import slash from '../Homepage/slash'
 
 
-
+/**
+ * Posting answer for a Question
+ * @name Post Answer
+ * @function Answer
+ * @param {ObjectSchema} question - Question for which to Post Answer 
+ * @returns {html} - Html component with post answer text area and on click updates database and rendered fresh data
+ */
 
 function Answer({ question }) {
-  console.log("ans_ques", question)
+<<<<<<< HEAD
+  // console.log("ans_ques", question)
+=======
+  // body: String. stores answer body from text area. Default value empty string
+>>>>>>> 8c775f819e0ff682f16c7af91a12dd5c5355309e
   const [body, setBody] = useState("");
+  // err: String. stores error message. When non IITB student tries to post answer, It displays non authorised message.
+  const [err, seterr] = useState("")
+<<<<<<< HEAD
   // const [Quesid, setQuesid] = useState(question._id);
   // const [author, setauthor] = useState(question.author);
   // const [email, setemail] = useState("");
   // const [answer, setanswer] = useState({});
 
+=======
+>>>>>>> 8c775f819e0ff682f16c7af91a12dd5c5355309e
   const { getLoggedIn } = useContext(AuthContext);
+  // create useHistory for keeping track of history of webpages visited
   const history = useHistory();
+<<<<<<< HEAD
   // useEffect(() => {    
   //   <DispAnswer qp={qp} ></DispAnswer>
   //  });
 
+=======
+  
+/**
+ * fetches details from param question and call the router function from backend and then render fresh data
+ * @returns {void}
+ */
+>>>>>>> 8c775f819e0ff682f16c7af91a12dd5c5355309e
 
   function RenderQues() {
-
+    // Posting answer from back end router
     async function postAns(e) {
-
       e.preventDefault();
       try {
+        // paramters required to send to backend routing function
         const ansBody = {
           body,
           Quesid: question._id,
           author: question.author,
           email: question.email,
         };
-        console.log("ansbody", ansBody)
 
+<<<<<<< HEAD
+
+
+        // console.log("ansbody", ansBody)
         await axios.post("http://localhost:9000/ques/postAns", ansBody);
 
         //e.returnValue = true;
         console.log("req accepted")
         //setanswer(ansBody)
+=======
+        // backend routing function invoked and rendered data fresh
+        await axios.post("http://localhost:9000/ques/postAns", ansBody);
+        console.log("req accepted")
+>>>>>>> 8c775f819e0ff682f16c7af91a12dd5c5355309e
         await getLoggedIn();
         window.location.reload();
         history.push("/ques/" + question._id);
+
       } catch (err) {
-        console.error(err);
+        // If non IITB member tries to post answer, verification fails for him/her and gets non authorised message
+        if (err.response) {
+          if (err.response.data.errorMessage) {
+            seterr(err.response.data.errorMessage);
+          }
+        }
       }
     }
 
-
+    // Returns html component for post answer feature
     return (
       <div>
         <div>
+
           <h3><span className="text-color">Post Your Answer</span></h3>
           <form onSubmit={postAns}>
             <div className="form-group ">
@@ -68,6 +106,7 @@ function Answer({ question }) {
                 onChange={(e) => setBody(e.target.value)}
                 value={body}
               ></textarea>
+              <p className="error">{err}</p>
             </div>
 
             <button type="submit" >Post</button>
@@ -89,4 +128,5 @@ function Answer({ question }) {
 
 }
 
+// Exporting the Answer
 export default Answer;
