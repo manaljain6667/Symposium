@@ -35,19 +35,11 @@ function DispAnswer({ question }) {
     }
     
     else {
-<<<<<<< HEAD
-      const answer=question.answers
-      
-      // const answers= answer.sort({ answer.upVoteCount: -1 })
-      const answers = answer.sort((a, b) => a.upVoteCount<b.upVoteCount ? 1 : -1);
-      console.log("Heyyyyy", answers)
-=======
       // answer stores the array of answers(ObjectSchema) of that question
       const answer=question.answers
       // sort the answers in descending order of likes
       const answers = answer.sort((a, b) => a.upVoteCount<b.upVoteCount ? 1 : -1);
       // for each answer returns separate html component
->>>>>>> 8c775f819e0ff682f16c7af91a12dd5c5355309e
       return question.answers.map((answer, j) => {
       
         return (

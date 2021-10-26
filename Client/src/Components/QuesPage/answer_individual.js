@@ -16,37 +16,18 @@ import "../PostQuestion/tagsInput.css"
  */
 
 function Answer({ question }) {
-<<<<<<< HEAD
-  // console.log("ans_ques", question)
-=======
   // body: String. stores answer body from text area. Default value empty string
->>>>>>> 8c775f819e0ff682f16c7af91a12dd5c5355309e
   const [body, setBody] = useState("");
   // err: String. stores error message. When non IITB student tries to post answer, It displays non authorised message.
   const [err, seterr] = useState("")
-<<<<<<< HEAD
-  // const [Quesid, setQuesid] = useState(question._id);
-  // const [author, setauthor] = useState(question.author);
-  // const [email, setemail] = useState("");
-  // const [answer, setanswer] = useState({});
-
-=======
->>>>>>> 8c775f819e0ff682f16c7af91a12dd5c5355309e
   const { getLoggedIn } = useContext(AuthContext);
   // create useHistory for keeping track of history of webpages visited
   const history = useHistory();
-<<<<<<< HEAD
-  // useEffect(() => {    
-  //   <DispAnswer qp={qp} ></DispAnswer>
-  //  });
-
-=======
   
 /**
  * fetches details from param question and call the router function from backend and then render fresh data
  * @returns {void}
  */
->>>>>>> 8c775f819e0ff682f16c7af91a12dd5c5355309e
 
   function RenderQues() {
     // Posting answer from back end router
@@ -61,20 +42,9 @@ function Answer({ question }) {
           email: question.email,
         };
 
-<<<<<<< HEAD
-
-
-        // console.log("ansbody", ansBody)
-        await axios.post("http://localhost:9000/ques/postAns", ansBody);
-
-        //e.returnValue = true;
-        console.log("req accepted")
-        //setanswer(ansBody)
-=======
         // backend routing function invoked and rendered data fresh
         await axios.post("http://localhost:9000/ques/postAns", ansBody);
         console.log("req accepted")
->>>>>>> 8c775f819e0ff682f16c7af91a12dd5c5355309e
         await getLoggedIn();
         window.location.reload();
         history.push("/ques/" + question._id);

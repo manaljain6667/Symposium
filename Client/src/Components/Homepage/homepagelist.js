@@ -3,15 +3,10 @@ import React, { useEffect, useState } from "react";
 import Homepage from "./homepage"
 
 /**
-<<<<<<< HEAD
- * Homepage list
- * @returns {*} html div component to render all things on the homepage
-=======
  * list of all questions rendered by homepage.js displayed with the question details
  * @function  Ques
  * @name Homepage List
  * @returns {html} html div component to render all things on the homepage
->>>>>>> 8c775f819e0ff682f16c7af91a12dd5c5355309e
  */
 
 function Ques() {
@@ -19,11 +14,6 @@ function Ques() {
 
   /** ques: array variable , which we are using as a react hook (useState) ,in which we will store all the ques  */
   const [ques, setQues] = useState([]);
-<<<<<<< HEAD
-  const [addr, setAddr] = useState('/');
-  const [tags, setTags] = useState([]);
-=======
->>>>>>> 8c775f819e0ff682f16c7af91a12dd5c5355309e
 
   /** addr: string variable , which we are using as a react hook (useState) , which contains the partial url address   */
   const [addr, setAddr] = useState('/');
@@ -77,7 +67,7 @@ function Ques() {
   /**
    * getQues : function
    *   in this function we first make a http get method request to the server using axios
-   *   based on the url it then returns the question (either sorted based on the upper 3 parameters) or 
+   *   based on the url it then returns the question (either sorted based on the upper 3 parameters) or
    *   normally in the same way as stored in the database
    */
   async function getQues() {
@@ -85,41 +75,20 @@ function Ques() {
     console.log("hii addrss")
     console.log("http://localhost:9000/ques", addr)
     const questions = await axios.get("http://localhost:9000/ques" + addr);
-<<<<<<< HEAD
-    // console.log("succes:", questions)
-    setQues(questions.data);
-  }
 
-  
-
-=======
-
-    // here we set the questions using react hook 
+    // here we set the questions using react hook
     setQues(questions.data);
   }
 
   /**
-   * useEffect is React LifeCycle method which is called when the page get mount 
+   * useEffect is React LifeCycle method which is called when the page get mount
    * we need this effect to call getQues and to set the ques(useState (React Hook)) variable with all the questions
    * we get from the axios
    */
->>>>>>> 8c775f819e0ff682f16c7af91a12dd5c5355309e
   useEffect(() => {
     getQues();
   }, []);
 
-<<<<<<< HEAD
-  useEffect(() => {
-    async function getTags() {
-      try{
-        const body={
-          mnl:"mnl"
-        }
-        console.log("tags section jjjjj")
-        const response= await axios.post("http://localhost:9000/ques/tagsSection",body)
-        const alltags=response.data;
-        console.log("alltags : ",alltags)
-=======
   /**
    * In this useEffect we implemented a function getTags
    * getTags : function 
@@ -148,7 +117,6 @@ function Ques() {
         const alltags=response.data;
 
         // here we set the alltags value using setTags React Hook method
->>>>>>> 8c775f819e0ff682f16c7af91a12dd5c5355309e
         setTags(alltags)
       }
       catch(err){
@@ -158,9 +126,6 @@ function Ques() {
     getTags();
   }, []);
 
-<<<<<<< HEAD
-  function rendertags(){
-=======
   /**
    * rendertags : function
    * @returns html span inline blocks of tags which we are displaying on homepage
@@ -168,7 +133,6 @@ function Ques() {
   function rendertags(){
 
     //object.enetries is the function which is used to iterate through the tags object which is a key-value pair
->>>>>>> 8c775f819e0ff682f16c7af91a12dd5c5355309e
     return Object.entries(tags).map(([key,value])=>{
       return (
         <span className="text-color tags-box">
