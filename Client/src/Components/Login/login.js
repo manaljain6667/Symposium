@@ -7,30 +7,66 @@ import ErrorMessage from "../ErrorMessage/errormess"
 import { Link } from 'react-router-dom';
 
 axios.defaults.withCredentials = true;
+
+/**
+ * Login
 function Login() {
+ * @function 
+ * @name Login
+ * @returns {html} html div component containing login form
+ */
+function Login() {
+
+  //email variable used to store email given by user
   const [email, setEmail] = useState("");
+
+  //password variable used to store password given by user
   const [password, setPassword] = useState("");
+
+  //errorMessage variable used to store the error Message which we get from the server side if the email or password 
+  //is not there already in database
   const [errorMessage, setErrorMessage] = useState("")
+
+  //err variable used to store all the errors which we get when user types something wrong 
   const [err,seterr]=useState({})
 
   const data = useContext(AuthContext);
+
+  //getLoggedIn boolean variable used to store true or false based on whether user is logged in or not
   const getLoggedIn=data.getLoggedIn
+
+  //history variable used to store the history given by the React Hook
   const history = useHistory();
 
+  /**
+   * 
+   * @param {*} e e is the event variable
+   */
   async function login(e) {
     e.preventDefault();
-
+    
+    // isValidated boolean variable which is true if there are no errors 
     var isValidated=true
+
+    //err an object which stores the error field name (key) and error message (value) 
     let error={};
-    // if(!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)){
-    //   isValidated=false;
-    //   error["email"]="Email is invalid";
-    // }
-    // if(password.length <6){
-    //   isValidated=false;
-    //   error["password"]="Password length is too short";
-    // }
+
+    //here we check whether entered email is valid or not using regex
+    if(!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)){
+      isValidated=false;
+
+      //if it is not valid then we set the error with key = " email" and value = error message
+      error["email"]="Email is invalid";
+    }
+
+    //here we check whether the entered password length  is greated than 5 or not
+    if(password.length <6){
+      isValidated=false;
+      error["password"]="Password length is too short";
+    }
+
     if(isValidated){
+      //if there are no errors then we are here
     try {
       const loginData = {
         email,
@@ -38,16 +74,18 @@ function Login() {
       };
       console.log("hello")
 
+      //an http post request has been made using axios
       await axios.post("http://localhost:9000/auth/login", loginData);
-      
 
       await getLoggedIn();
       console.log("login:",data.loggedIn)
+
+      //here we push the address where we want to be redirected after login
      history.push("/home");
     } catch (err) {
       if (err.response) {
         if (err.response.data.errorMessage) {
-          // setErrorMessage(err.response.data.errorMessage);
+          // setErrorMessage sets the error message we get from the server side;
           setErrorMessage(err.response.data.errorMessage)
         }
       }
@@ -55,13 +93,14 @@ function Login() {
   }
   
   else{
+    //if there are any errors then we set them here to display it in user interface
     seterr(error)
   }
   }
 
   return (
     <div>
-      {/* <h1>Log in to your account</h1> */}
+      {/* Here we display all the error messages we get due to incorrect typings */}
       {errorMessage && (
         <ErrorMessage
           message={errorMessage}

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { AuthContextProvider } from "./context/AuthContext"
-//import Context from './Context';
+
 
 ReactDOM.render(
   

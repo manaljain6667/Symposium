@@ -6,51 +6,70 @@ import AuthContext from "../../context/AuthContext";
 import './styles.css';
 import { Link } from 'react-router-dom';
 
+/**
+ * Register page
+ * @function Register
+ * @name Register
+ * @returns {*} html page for register
+ */
 function Register() {
+  // email: String. Stores email entered by user
   const [email, setEmail] = useState("");
+  // name: String. Stores name entered by user
   const [name, setName] = useState("");
+  // password: String. Stores password entered by user
   const [password, setPassword] = useState("");
+  // passwordVerify: String. Stores passwordVerify entered by user
   const [passwordVerify, setPasswordVerify] = useState("");
-
+  // err: Dictionary. Stores error response from backend
   const [err,seterr]=useState({})
+  // errorMessage: String. Stores error message
   const [errorMessage, setErrorMessage] = useState("")
-  console.log("register")
-
   const { getLoggedIn } = useContext(AuthContext);
   const history = useHistory();
   
+  /**
+   * Validate entries and send to the backend
+   * @param {*} e 
+   * @returns{void}
+   */
   async function register(e) {
     e.preventDefault();
-
+    // isValidated: Boolean. Flag variable
     var isValidated=true
     let error={};
+    // name entered shoud be of atleast one character
     if(name.length <1){
       isValidated=false;
       error["name"]="Field user name cannot be empty";
     }
+    // email should match with proper email syntax
     if(!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)){
       isValidated=false;
       error["email"]="Email is invalid";
     }
+    // Checking if password length is strong enough
     if(password.length <6){
       isValidated=false;
       error["password"]="Password length is too short";
     }
-    
+    // Verifying paasword with passwordVerify
     if( password  !== passwordVerify){
       isValidated=false;
       error["passwordverify"]="Password and confirm password do not match";
     }
+    // If all entries are valid
     if(isValidated){
       let error={}
       seterr(error)
       try {
+        // registerData: Dictionary {{String, String, String}}
         const registerData = {
           email,
           password,
           name,
         };
-  
+        // Send register details 
         await axios.post("http://localhost:9000/auth/", registerData);
   
         await getLoggedIn();
@@ -67,9 +86,9 @@ function Register() {
       seterr(error)
     }
   }
-
+  // return html component for register
   return (
-    
+    // post error message found in validations done above
     <div className="container">
       {errorMessage && (
         <ErrorMessage

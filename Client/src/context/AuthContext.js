@@ -3,21 +3,22 @@ import React, { createContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
+/**
+ * Authenticator for front end to retrieve loggedin user info
+ * @function AuthContextProvider
+ * @name Authenticator for front end
+ * @returns {Object} returns user info
+ */
+
 function AuthContextProvider(props) {
   const [loggedIn, setLoggedIn] = useState(undefined);
-  const [userId , setUserId]=useState("")
+  const [userId, setUserId] = useState("")
 
   async function getLoggedIn() {
-   const loggedInRes = await axios.get("http://localhost:9000/auth/loggedIn");
-    // const loggedInRes = await axios.get(
-    //   "https://mern-auth-template-tutorial.herokuapp.com/auth/loggedIn"
-    // );
+    const loggedInRes = await axios.get("http://localhost:9000/auth/loggedIn");
     await setUserId(loggedInRes.data.id)
     await setLoggedIn(loggedInRes.data.loggedIn);
-    // console.log("ID: ",loggedInRes.data.id)
-    
-    console.log("setid",userId)
-    
+
   }
 
   useEffect(() => {
@@ -25,8 +26,8 @@ function AuthContextProvider(props) {
   }, [loggedIn]);
 
   return (
-  
-    <AuthContext.Provider value={{ userId, loggedIn,  getLoggedIn }}>
+
+    <AuthContext.Provider value={{ userId, loggedIn, getLoggedIn }}>
       {props.children}
     </AuthContext.Provider>
   );

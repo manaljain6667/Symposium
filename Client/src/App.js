@@ -7,15 +7,22 @@ import Register from "./Components/Register/register";
 import PostQues from "./Components/PostQuestion/postQues"
 // import LogOutBtn from "./Components/Logout/logout";
 import QuestionPage from "./Components/QuesPage/quesPage";
+import SearchQues from "./Components/Homepage/SearchPage";
 import axios from "axios";
 //import { AuthContextProvider } from "./context/AuthContext"
 import AuthContext from "./context/AuthContext";
 axios.defaults.withCredentials = true;
+
+/**
+ * Create routes and add navigation 
+ * @function App
+ * @name App
+ * @returns {Object} - returns navigation bars
+ */
+
 function App() {
   const  data = useContext(AuthContext);
-   const loggedIn=data.loggedIn
-    //const user  = data.userId
-  console.log("login",loggedIn)
+  const loggedIn=data.loggedIn
 
   return (
   
@@ -26,6 +33,8 @@ function App() {
         <Redirect to="/home"/>)}/>
       <Route path='/ques/:id' component={QuestionPage}/>
       <Route  path='/home' component={Ques} />
+      <Route  path='/search' component={SearchQues} />
+      <Route path='/tagsSection' component={Ques}/>s
       {
         loggedIn===undefined && (
           <>
