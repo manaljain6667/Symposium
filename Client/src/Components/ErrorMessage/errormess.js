@@ -1,10 +1,11 @@
 import React from "react";
+import "../Homepage/homepage.css"
 // import "./ErrorMessage.scss";
 
 function ErrorMessage({ message, clear }) {
   return (
     <div>
-      <p>{message}</p>
+      <p className="error">{message}</p>
       <button onClick={clear}>Clear</button>
     </div>
   );
