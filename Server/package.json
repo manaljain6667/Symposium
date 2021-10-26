@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "server": "nodemon src/index.js"
+        "server": "nodemon src/index.js",
+        "doc": "jsdoc -c jsdoc.json"
     },
     "keywords": [],
     "author": "",
@@ -17,10 +18,14 @@
         "express-session": "^1.17.2",
         "install": "^0.13.0",
         "jsonwebtoken": "^8.5.1",
+        "moment": "^2.29.1",
         "mongoose": "^6.0.9",
         "nodemon": "^2.0.13",
         "passport": "^0.5.0",
         "passport-google-oauth20": "^2.0.0",
         "validator": "^13.6.0"
+    },
+    "devDependencies": {
+        "jsdoc": "^3.6.7"
     }
 }

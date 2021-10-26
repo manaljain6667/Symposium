@@ -9,7 +9,9 @@ const app = express()
 const port = process.env.PORT || 9000
 
 app.use(express.json());
+//module to parse cookie
 app.use(cookieParser())
+//use connect with frontend
 app.use(
     cors({
       origin: [
@@ -19,7 +21,9 @@ app.use(
     })
   );
 app.use(express.urlencoded({extended:true}))
+//router for auth
 app.use("/auth", require("./router/user_router"));
+//router for ques
 app.use("/ques", require("./router/ques_router"));
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
