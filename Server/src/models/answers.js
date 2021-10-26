@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+
 const User = require('./user')
 
 const uri = "mongodb+srv://Hrishi:qwerty1234@symposium.caypb.mongodb.net/symposium?retryWrites=true&w=majority";
@@ -101,5 +102,6 @@ const answerSchema = new mongoose.Schema({
   });
 
 const Answers = mongoose.model('Answers', answerSchema)
+
 
 module.exports = Answers
