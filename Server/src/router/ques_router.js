@@ -37,7 +37,6 @@ router.post("/postQues", async (req, res) => {
         //create a new object for question schema
         const newQues = await ques.save()
         //save the question schema
-
         res.json(newQues)
         //send the client the saved question
 
@@ -185,7 +184,6 @@ router.get("/upVote/:id", async (req, res) => {
     //find the id of the question asked to vote
 
 
-
     try {
 
         const ques = await Ques.findById(_id)
@@ -194,13 +192,11 @@ router.get("/upVote/:id", async (req, res) => {
             res.json("Question Not found!")
             //return if no such question found
         }
-
         const user = await User.findByToken(req.cookies.token)
         //find the details of the user logged in
 
 
         //function to down vote the question if he tries to vote twice
-
         if (ques.upVotes.filter(upVote => upVote.user._id.toString() ===
             user._id.toString()).length > 0) 
             //check if user is already present the question vote Count
@@ -234,80 +230,6 @@ router.get("/upVote/:id", async (req, res) => {
         res.status(404).send(e)
     }
 })
-router.post('/postAns', async (req, res) => {
-   
-    try {
-        const token = req.cookies.token
-        const verified = await jwt.verify(token, "secret_key");
-        const user = await User.findById(verified.user)
-        const author = user.name
-        console.log('checking user details')
-        console.log(user)
-        req.body.author = user.name
-        req.body.email = user.email
-    } catch (e) {
-        console.log('404 error occuring')
-        res.status(404).send(e)
-    }
-
-   await Ques.findOne({ _id: req.body.Quesid }, (err, question) => {
-        console.log("Inside answer router")
-        author = req.body.author
-        email = req.body.email
-        body = req.body.body
-        console.log(question)
-
-        if (err || !question) res.status(500).json("Something went wrong.")
-        else {
-            const ans = new Ans({ author, email, body })
-            ans.save()
-            question.answers.push(ans)
-            question.save()
-                .then(() => res.json({ message: "Success" }))
-
-            return
-        }
-    })
-})
-//question search
-router.get("/search",async (req,res) =>{
-    const body=req.body.search
-   //sentence into strings of words
-    //let str = "How are you doing today?";
-    const substrings = body.split(" ")
-    console.log(substrings)
-    const ques=await Ques.find()
-    var count
-    var result=[]
-    var flag=0
-    //console.log(body)
-    //res.send(myArr)
-    ques.forEach(async (title) => {
-        questitle=title.body
-        len=substrings.length
-        
-        count=0
-        while(len--) {
-            if (questitle.indexOf(substrings[len])!=-1) {
-                count=count+1
-                flag=1
-            }
-         }
-        // title["match"]=count
-        //  console.log(title)
-        if(count!=0){
-            result.push({ques:title,match:count})
-        }
-    })
-    result=result.sort((a, b) => parseFloat(b.match) - parseFloat(a.match));
-    result = result.map(({ match, ...r }) => r);
-    // console.log(result)
-    if(flag){
-        res.send(result)
-    }
-    else{res.send("No match found")}
-})
-
 
 //post answer by user
 /**

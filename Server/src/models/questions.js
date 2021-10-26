@@ -3,7 +3,6 @@ const User = require('./user')
 const answerSchema = require('./answers').schema;
 const moment=require('moment')
 //connect to cloud mongodb url
-
 const uri = "mongodb+srv://Hrishi:qwerty1234@symposium.caypb.mongodb.net/symposium?retryWrites=true&w=majority";
 
 
@@ -64,13 +63,11 @@ const questionSchema = new mongoose.Schema({
     type: Number,
     default:0
   },
-
   created_at:{
     type:String,
     required: true,
     // default:moment().format('D MMM, YYYY h:mm:ss a')
   }
-
   });
 
 
@@ -94,6 +91,7 @@ const questionSchema = new mongoose.Schema({
       ans["upVoteCount"] = ans.upVotes.length;
 
   });
+
     next();
 
   });
