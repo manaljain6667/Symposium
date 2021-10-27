@@ -1,3 +1,5 @@
+
+//import required modules
 const express = require("express")
 const mongoose = require("mongoose")
 const session = require('express-session')
@@ -7,7 +9,7 @@ const User = require('./models/user')
 const Ques = require('./models/questions')
 const app = express()
 const port = process.env.PORT || 9000
-
+//module to view json data
 app.use(express.json());
 //module to parse cookie
 app.use(cookieParser())
@@ -21,7 +23,7 @@ app.use(
     })
   );
 app.use(express.urlencoded({extended:true}))
-//router for auth
+//router for user authentication
 app.use("/auth", require("./router/user_router"));
 //router for ques
 app.use("/ques", require("./router/ques_router"));

@@ -22,29 +22,34 @@ try {
  * @constructor Question Schema
  */
 const questionSchema = new mongoose.Schema({
+  //author of the    question
     author: {
       type: String,
     },
+    //unique id of author
     author_id:{
       type:String,
 
     },
+    //array storing the vie details
     views:[{
       user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }
     }],
+    //count of views
     viewsCount:{
       type:Number,
       default:0
     },
-
+    //body of the  question
     body: {
       type: String,
       required: true,
       trim: true,
     },
+    //array storing the upvote details
     upVotes: [{
       user: {
           type: mongoose.Schema.Types.ObjectId,
@@ -52,17 +57,20 @@ const questionSchema = new mongoose.Schema({
       }}
 
   ],
+  //count of upvote
   upVoteCount : {type:Number,
   default:0
   },
   tags:[{
     type:String
   }],
+  //array containing answers
   answers: [answerSchema],
   count_answers:{
     type: Number,
     default:0
   },
+  //timstamp
   created_at:{
     type:String,
     required: true,
@@ -79,11 +87,13 @@ const questionSchema = new mongoose.Schema({
  * @param {Callback} - Callback argument to the middleware function, called "next" by convention.
  */
   questionSchema.pre('save', function (next) {
+    //count the upvote before saving it
 
     this.upVoteCount = this.upVotes.length
+    //count views before saving the ques
 
     this.viewsCount=this.views.length
-
+//count the answer
     this.count_answers=this.answers.length
 
     this.answers.forEach(function (ans) {
