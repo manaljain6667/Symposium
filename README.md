@@ -164,5 +164,5 @@ Contribution
 
 
 ## Path to Code Documentation (index.html)
-for client : ./Documentation/Client/index.html
-for server : ./Documentation/Server/index.html
+- for client : ./Documentation/Client/index.html
+- for server : ./Documentation/Server/index.html
