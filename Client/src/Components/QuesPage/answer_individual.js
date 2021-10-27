@@ -34,6 +34,7 @@ function Answer({ question }) {
     async function postAns(e) {
       e.preventDefault();
       try {
+        if(body.length !== 0){
         // paramters required to send to backend routing function
         const ansBody = {
           body,
@@ -48,6 +49,10 @@ function Answer({ question }) {
         await getLoggedIn();
         window.location.reload();
         history.push("/ques/" + question._id);
+          }
+      else{
+        seterr("Text area cannot be empty to post answer")
+      }
 
       } catch (err) {
         // If non IITB member tries to post answer, verification fails for him/her and gets non authorised message
