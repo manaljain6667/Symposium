@@ -45,9 +45,7 @@ export default function NavBar() {
                         <li className="nav-item active">
                             <Link className="nav-link" to="/home"><span className="text-color"> Home </span>  <span className="sr-only">(current)</span></Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/aboutus"> <span className="text-color">About Us</span>  </Link>
-                        </li>
+                      
 
                     </ul>
                     
