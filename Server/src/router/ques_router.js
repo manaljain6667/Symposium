@@ -68,7 +68,7 @@ router.get('/', async (req, res) => {
 //send all the question sorted by count views
 /**
  * Route serving to return all question sorted by viewsCount.
- * @name Sort Question(views)
+ * @name Sort_Question_views
  * @function
  * @inner
  * @param {string} path -  path
@@ -90,7 +90,7 @@ router.get('/view', async (req, res) => {
 //send all the question sorted by count votes
 /**
  * Route serving to return all question sorted by votesCount.
- * @name Sort Question(votes)
+ * @name Sort_Question_votes
  * @function
   * @inner
  * @param {string} path -  path
@@ -110,7 +110,7 @@ router.get('/vote', async (req, res) => {
 //send all the question sorted by count answer
 /**
  * Route serving to return all question sorted by answered Count.
- * @name Sort Question(answers)
+ * @name Sort_Question_answers
  * @function
  * @inner
  * @param {string} path -  path
