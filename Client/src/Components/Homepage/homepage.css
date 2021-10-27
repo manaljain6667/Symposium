@@ -59,6 +59,7 @@ text-overflow: inherit;
 .tags{
 padding:5px;
 font-size: 1.5rem;
+
 }
 
 
@@ -94,6 +95,7 @@ border: 1px solid black;
 }
 .title{
 font-size: 2rem;
+padding-top: 1%;
 }
 
 .view{
@@ -128,6 +130,7 @@ box-sizing: border-box;
 margin-right: 1px;
 border: 1px solid black !important;
 background-clip:padding-box;
+
 }
 
 .box-result{
