@@ -70,3 +70,7 @@ form{
     color: #167bff;
     text-decoration: none;
 }
+.errorMessage{
+    margin-left: 35%;
+  
+}

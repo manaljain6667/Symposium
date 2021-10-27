@@ -100,13 +100,14 @@ function Login() {
 
   return (
     <div>
-      {/* Here we display all the error messages we get due to incorrect typings */}
+   <div className="errorMessage">   {/* Here we display all the error messages we get due to incorrect typings */}
       {errorMessage && (
         <ErrorMessage
           message={errorMessage}
           clear={() => setErrorMessage(null)}
         />
       )}
+      </div>
 
       <div className="container">
         <div className="row row-container">
