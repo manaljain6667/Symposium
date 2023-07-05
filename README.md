@@ -164,5 +164,5 @@ Contribution
 
 
 ## Path to Code Documentation (index.html)
-- for client : ./Documentation/Client/index.html
-- for server : ./Documentation/Server/index.html
+- for client : https://manaljain6667.github.io/Symposium/Documentation/Client/index.html
+- for server : https://manaljain6667.github.io/Symposium/Documentation/Server/index.html
