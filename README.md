@@ -11,7 +11,7 @@ basis of votes, views and number of answers, so that IITB users can answer to mo
 Then it will be really helpful to lot of help seeking people having great dreams and determination to get admission at 
 IIT Bombay or make use of their knowledge to get on the right path. Also to others to get basic information about general events.
 
-## Sell your Product/Service
+## Aim
 
 Resolve your queries regarding IIT Bombay life style and academics and get replied from trusted users
 
